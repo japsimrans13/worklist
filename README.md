@@ -4,7 +4,7 @@ A  Todo Application frontend using Flutter.
 
 ## Getting Started
 
-This project connects to RestAPI created using Django Rest Framework.
+This project connects to RestAPI created using Django Rest Framework (running on Heroku).
 
 User can login using username and password and the API endpoint returns a JWT (JSON Web Token), which is stored in the local storage of mobile and for further authentications this JWT is used (this helps in minimizing the login attempts).
 
