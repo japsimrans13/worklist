@@ -14,5 +14,5 @@ Link to release version of mobile app : https://drive.google.com/file/d/1-A_yrFo
 
 
 Credentials for guest login (these username and password are only for testing purpose) :
-username : testuser1
-password : 123abc99pp
+# username : testuser1
+# password : 123abc99pp
