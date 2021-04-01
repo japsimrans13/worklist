@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:worklistfrontend/EmptyWidget.dart';
-
-import 'Worklist.dart';
+// Import for http requests is below
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
+// Imports for hive ar below
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+// import for request to json convert
+import 'dart:convert' as convert;
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+import 'package:worklistfrontend/Worklist.dart';
+
+class LoginPage extends StatefulWidget {
+  LoginPage({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginPageState extends State<LoginPage> {
   final myUsernameController = TextEditingController();
   final myPasswordController = TextEditingController();
 
@@ -25,14 +27,13 @@ class _MyHomePageState extends State<MyHomePage> {
   var password;
   var getTokenUrl = 'https://todo13.herokuapp.com/api/token/';
 
-  void main() async {
-    await Hive.initFlutter();
-  }
-  
-
+  // void startHive() async {
+  //   await Hive.initFlutter();
+  // }
 
   @override
   void initState() {
+    Hive.initFlutter();
     super.initState();
     openBox();
   }
@@ -41,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
     var dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
     credBox = await Hive.openBox('Credentials');
-    print('Box named test box is opened');
     return;
   }
 
@@ -85,23 +85,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (response.statusCode == 200) {
                   var jsonResponse = convert.jsonDecode(response.body);
                   JWT = jsonResponse['access'];
+                  print(JWT);
                   // Adding JWT to hive database
                   await credBox.put('JWT', JWT);
-
+                  print('JWT has been added to box');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => Worklist()),
+                      ));
                 } else {
                   print('Request failed with status: ${response.statusCode}.');
                 }
               },
-              child: Text('Add data'),
+              child: Text('Login'),
             ),
-            RaisedButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(
-                  builder: ((context) => Worklist()),
-                ));
-              },
-              child: Text('Change Screen '),
-            )
           ],
         ),
       ),

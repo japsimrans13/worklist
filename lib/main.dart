@@ -1,6 +1,5 @@
-import 'package:worklistfrontend/MyHomePage.dart';
-
 import 'package:flutter/material.dart';
+import 'package:worklistfrontend/Worklist.dart';
 
 
  
@@ -19,7 +18,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Worklist',
-      home: MyHomePage(),
+      home: Worklist()
     );
   }
 }
